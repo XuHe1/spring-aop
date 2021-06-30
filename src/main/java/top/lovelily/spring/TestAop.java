@@ -17,13 +17,19 @@ import top.lovelily.spring.service.impl.UserServiceImpl;
 
 public class TestAop {
     public static void main(String[] args) {
+        UserService userService1 = new UserServiceImpl();
+        System.out.println(userService1 instanceof UserServiceImpl); // true
+        System.out.println(userService1 instanceof UserService);    //true
+
+        System.out.println("------------------------------------");
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:beans.xml");
         Object bean = context.getBean("userService");
-        System.out.println(bean instanceof Advised);
+        System.out.println(bean);
+        System.out.println(bean instanceof Advised); // true
 
-        System.out.println(bean instanceof UserService);
+        System.out.println(bean instanceof UserService); // true
 
-        System.out.println(bean instanceof UserServiceImpl);
+        System.out.println(bean instanceof UserServiceImpl); // false
 
         UserService userService = (UserService) bean;
 

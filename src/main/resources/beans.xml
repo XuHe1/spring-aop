@@ -8,18 +8,24 @@
 
         <bean id ="logAspect" class="top.lovelily.spring.aop.LogAspect"/>
 
+        <bean id = "helloArroundAdvice" class="top.lovelily.spring.aop.HelloAroundAdvice"/>
+
         <aop:config>
+<!--第一种方式：通过aspect方式配置切面-->
+<!--                <aop:aspect id="logAspect" ref="logAspect">-->
+<!--                        &lt;!&ndash;execution(返回值 包名.接口名.方法名（参数）&ndash;&gt;-->
+<!--                        &lt;!&ndash;execution(User top.lovelily.spring.service.UserService.get())&ndash;&gt;-->
+<!--                        <aop:pointcut id="serviceOperation"-->
+<!--                                      expression="execution(* top.lovelily.spring.service.*.*(..))"/>-->
 
-                <aop:aspect id="logAspect" ref="logAspect">
-                        <!--execution(User top.lovelily.spring.service.UserService.get())-->
-                        <aop:pointcut id="serviceOperation"
-                                      expression="execution(* top.lovelily.spring.service.*.*(..))"/>
+<!--                        <aop:around-->
+<!--                                pointcut-ref="serviceOperation"-->
+<!--                                method="doAroundLog"/>-->
 
-                        <aop:around
-                                pointcut-ref="serviceOperation"
-                                method="doAroundLog"/>
+<!--                </aop:aspect>-->
 
-                </aop:aspect>
-
+            <!--第二种方式：通过advisor方式配置切面-->
+                <aop:pointcut id="myPointcut" expression="execution(* top.lovelily.spring.service.*.*(..))"/>
+                <aop:advisor advice-ref="helloArroundAdvice" pointcut-ref="myPointcut"/>
         </aop:config>
 </beans>
